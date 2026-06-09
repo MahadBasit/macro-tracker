@@ -1,0 +1,20 @@
+# Environment files
+frontend/.env
+backend/.env
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+backend/venv/
+backend/.venv/
+
+# Node / Nuxt
+frontend/node_modules/
+frontend/.nuxt/
+frontend/.output/
+frontend/dist/
+
+# Misc
+.DS_Store
+*.log
