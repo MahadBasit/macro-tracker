@@ -36,13 +36,17 @@ interface Goals {
 const { apiFetch } = useApi();
 const error = ref("");
 
-const { data, pending, refresh } = await useAsyncData("dashboard", async () => {
-  const [goalsRes, mealsRes] = await Promise.all([
-    apiFetch<{ data: Goals | null }>("/api/goals"),
-    apiFetch<{ data: Meal[] }>("/api/meals/today"),
-  ]);
-  return { goals: goalsRes.data, meals: mealsRes.data };
-});
+const { data, pending, refresh } = await useAsyncData(
+  "dashboard",
+  async () => {
+    const [goalsRes, mealsRes] = await Promise.all([
+      apiFetch<{ data: Goals | null }>("/api/goals"),
+      apiFetch<{ data: Meal[] }>("/api/meals/today"),
+    ]);
+    return { goals: goalsRes.data, meals: mealsRes.data };
+  },
+  { server: false }
+);
 
 const goals = computed(() => data.value?.goals ?? null);
 const meals = computed(() => data.value?.meals ?? []);
@@ -60,9 +64,9 @@ const totals = computed(() => {
 });
 
 watch(
-  goals,
-  (val) => {
-    if (val === null && !pending.value) {
+  [data, pending],
+  () => {
+    if (!pending.value && data.value !== null && goals.value === null) {
       navigateTo("/goals");
     }
   },
