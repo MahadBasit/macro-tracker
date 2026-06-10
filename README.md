@@ -2,6 +2,8 @@
 
 Track daily protein, carbs, fat, and calorie intake against personal goals.
 
+![Macro Tracker Dashboard](./preview.webp)
+
 **Live:** https://macro-tracker-one-flax.vercel.app
 
 ---
